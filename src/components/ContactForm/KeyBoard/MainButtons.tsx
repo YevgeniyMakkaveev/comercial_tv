@@ -1,13 +1,13 @@
 import React from "react";
-import { numBtns } from "./units/buttonHelpers";
+import { numBtns } from "../../../units/matrixBtns";
 import "./Keyboard.scss"
-interface IKeyBoard {
-  onBtnPress: (val: string) => void;
-  onDelPress: () => void;
+interface IMainBtns {
+  onBtnPress: (val: string, needCoordinates: boolean) => void;
+  onDelPress: (needCoordinates: boolean) => void;
   currentValue: string;
 }
 
-const KeyBoard: React.FC<IKeyBoard> = ({
+const MainButtons: React.FC<IMainBtns> = ({
   onBtnPress,
   onDelPress,
   currentValue,
@@ -17,7 +17,7 @@ const KeyBoard: React.FC<IKeyBoard> = ({
       <button
         key={num}
         className={currentValue === num ? "active" : ""}
-        onClick={() => onBtnPress(num)}
+        onClick={() => onBtnPress(num, true)}
       >
         {num}
       </button>
@@ -27,9 +27,9 @@ const KeyBoard: React.FC<IKeyBoard> = ({
   return <><div className="numKeyboard"> {numBtns.map((x) => CreateNumBtn(x))}</div>
   <div className="extraKeyboard">
    {CreateNumBtn("0")}
-   <button className={currentValue === "D" ? "active" : ""} onClick={()=>onDelPress()}>Del</button>
+   <button className={currentValue === "D" ? "active" : ""} onClick={()=>onDelPress(true)}>Del</button>
     </div>
   </>;
 };
 
-export default KeyBoard;
+export default MainButtons;
