@@ -1,21 +1,46 @@
-import React,{useState} from "react";
-import "./StartScreen.scss"
+import React, { useState, useEffect, useCallback } from "react";
+import "./StartScreen.scss";
+import qrCode from "../../assets/qrCode.png";
 import IMainScreenComponent from "../../types/types";
+import windowEnum from "../../types/enum";
 
-const StartScreen: React.FC<IMainScreenComponent> = ({showContactForm}) => {
- const [showPromo, setShowPromo] = useState(true)
+const StartScreen: React.FC<IMainScreenComponent> = ({ setActiveWindow }) => {
+  const [showPromo, setShowPromo] = useState(false);
 
- setTimeout(() => {setShowPromo(true)}, 5000);
+  setTimeout(() => {
+    setShowPromo(true);
+  }, 5000);
 
-const close:React.MouseEventHandler<HTMLDivElement>=()=>{
- showContactForm(true)
-}
+  const close: React.MouseEventHandler<HTMLButtonElement> = () => {
+    setActiveWindow(windowEnum.contact);
+  };
+  const onKeyPress = useCallback(
+    (e: KeyboardEvent) => {
+      const { keyCode} = e;
+      if (keyCode === 13&&showPromo) {
+        setActiveWindow(windowEnum.contact);
+      }
+    },
+    [setActiveWindow,showPromo]
+  );
+  useEffect(() => {
+    window.addEventListener("keydown", onKeyPress);
+    return () => {
+      window.removeEventListener("keydown", onKeyPress);
+    };
+  }, []);
+  const promoPopup = (
+    <div className="popup">
+      <span className="popup__text">
+        Cтать acтрорфермером прямо сейчас и озелени красную планету!
+      </span>
 
-const promoPopup = <div className="popup" onClick={close}>
- Кликни на меня. 
-</div>
-
-
+      <img className="qr-code" src={qrCode} alt="qrCode" />
+      <button className="popup__btn" onClick={close}>
+        Я ГОТОВ!
+      </button>
+    </div>
+  );
 
   return (
     <div className="video">
@@ -28,7 +53,7 @@ const promoPopup = <div className="popup" onClick={close}>
         allow="autoplay; encrypted-media;"
         allowFullScreen
       />
-      {showPromo? promoPopup:null}
+      {showPromo ? promoPopup : null}
     </div>
   );
 };

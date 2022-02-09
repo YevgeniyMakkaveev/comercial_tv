@@ -4,19 +4,19 @@ import "./Keyboard.scss"
 interface IMainBtns {
   onBtnPress: (val: string, needCoordinates: boolean) => void;
   onDelPress: (needCoordinates: boolean) => void;
-  currentValue: string;
+  isActive: (val: string) => string;
 }
 
 const MainButtons: React.FC<IMainBtns> = ({
   onBtnPress,
   onDelPress,
-  currentValue,
+  isActive,
 }) => {
   const CreateNumBtn = (num: string) => {
     return (
       <button
         key={num}
-        className={currentValue === num ? "active" : ""}
+        className={"keyboard__btn " + isActive(num)}
         onClick={() => onBtnPress(num, true)}
       >
         {num}
@@ -27,7 +27,7 @@ const MainButtons: React.FC<IMainBtns> = ({
   return <><div className="numKeyboard"> {numBtns.map((x) => CreateNumBtn(x))}</div>
   <div className="extraKeyboard">
    {CreateNumBtn("0")}
-   <button className={currentValue === "D" ? "active" : ""} onClick={()=>onDelPress(true)}>Del</button>
+   <button className={"keyboard__btn " + isActive("D")} onClick={()=>onDelPress(true)}>Del</button>
     </div>
   </>;
 };

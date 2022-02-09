@@ -34,6 +34,9 @@ const buttonNavHelper = (cmd: string, crd: number[]): number[] => {
   if (crd[0] < 0) {
     return [x, btnMatrix[x].length - 1];
   }
+  if(crd[1]>btnMatrix[crd[0]].length-1){
+    crd[1]=btnMatrix[crd[0]].length-1
+  }
 
   console.log(crd);
   return crd;

@@ -1,4 +1,5 @@
+import windowEnum from "./enum";
 interface IMainScreenComponent {
- showContactForm: React.Dispatch<React.SetStateAction<boolean>>;
+ setActiveWindow: React.Dispatch<React.SetStateAction<windowEnum>>
 }
 export default IMainScreenComponent;

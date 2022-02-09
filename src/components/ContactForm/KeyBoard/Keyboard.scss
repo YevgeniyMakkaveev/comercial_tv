@@ -1,25 +1,65 @@
-.numKeyboard{
- display: grid;
- max-width: 500px;
- grid-template-columns: repeat(3, 1fr);
- button{
+.numKeyboard {
+  display: grid;
+  max-width: 500px;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.extraKeyboard {
+  display: grid;
+  max-width: 500px;
+  grid-template-columns: 2fr 1fr;
+}
+
+.keyboard__btn {
   min-width: 50px;
   min-height: 50px;
   display: block;
   margin: 0.5rem 0.5rem;
- }
+  background-color: transparent;
+  border: 0.05rem solid black;
 }
-.extraKeyboard{
-  display: grid;
-  max-width: 500px;
-  grid-template-columns: 2fr 1fr;
-  button {
-   min-width: 50px;
-   min-height: 50px;
-   display: block;
-   margin: 0.5rem 0.5rem;
-  }
+
+.keyboard__cross {
+  position: absolute;
+  width: 40px;
+  height: 30px;
+  font-size: 1rem;
+  top: 5%;
+  right: 5%;
 }
-.active{
-  background-color: red;
+
+.keyboard__confirm_enabled,
+.keyboard__confirm_disabled {
+  width: 250px;
+  height: 50px;
+  font-size: 1.2rem;
+  font-weight: 400;
+  background-color: transparent;
+}
+
+.keyboard__confirm_disabled {
+  opacity: 0.4;
+  border: 0.05rem solid gray;
+}
+
+.keyboard__confirm_enabled {
+  opacity: 1;
+  border: 0.05rem solid black;
+}
+
+  .confirm_disabled-active {
+  border: 0.05rem solid crimson !important;
+  color: crimson;
+  opacity: 1 !important;
+}
+
+.keyboard__checkbox {
+  background: rgba(40, 40, 40, 0.2);
+  width: 20px;
+  height: 20px;
+}
+
+.active {
+  background-color: black;
+  color: white;
 }

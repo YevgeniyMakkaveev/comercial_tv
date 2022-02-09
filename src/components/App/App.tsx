@@ -1,14 +1,17 @@
 import { useState } from "react";
-import ContactForm from "../ContactForm/ContactForm"
+import ContactForm from "../ContactForm/ContactForm";
 import StartScreen from "../StartScreen/StartScreen";
-import "./App.css";
+import Slider from "../Slider/Slider";
+import windowEnum from "../../types/enum";
+import "./App.scss";
 
 function App() {
-  const [contactForm, showContactForm]=useState(true)
+  const [activeWindow, setActiveWindow]=useState(windowEnum.slider)
   return (
-    <div className="">
-    {!contactForm&&<StartScreen  showContactForm={showContactForm} />}
-    {contactForm&&<ContactForm showContactForm={showContactForm} />}
+    <div className="App">
+    {activeWindow===windowEnum.video&&<StartScreen  setActiveWindow={setActiveWindow} />}
+    {activeWindow===windowEnum.contact&&<ContactForm setActiveWindow={setActiveWindow} />}
+    {activeWindow===windowEnum.slider&&<Slider setActiveWindow={setActiveWindow} />}
     </div>
   );
 }

@@ -6,52 +6,66 @@ import {
   getBtnByCoordinate,
 } from "../../../units/findButtonHelper";
 import "./Keyboard.scss";
+import windowEnum from "../../../types/enum";
 
 interface IKeyboard {
   number: string;
   setNumber: React.Dispatch<React.SetStateAction<string>>;
-  showContactForm: React.Dispatch<React.SetStateAction<boolean>>;
+  setActiveWindow: React.Dispatch<React.SetStateAction<windowEnum>>;
+  confirmNumber: () => void;
 }
 
 const Keyboard: React.FC<IKeyboard> = ({
   number,
   setNumber,
-  showContactForm,
+  setActiveWindow,
+  confirmNumber,
 }) => {
-  const [coordinates, setCoordinates] = useState<number[]>([2, 1]);
+  const [coordinates, setCoordinates] = useState<number[]>(
+    findBtnCoordinate("5")
+  );
   const [coordinatesRes, setCoordinatesRes] = useState<string>("5");
   const [isAgreed, setIsAgreed] = useState(false);
+
+  const coordinateSetter = (val: string) => {
+    const crd = findBtnCoordinate(val);
+    setCoordinates(crd);
+    setCoordinatesRes(val);
+  };
 
   const addNum = useCallback(
     (val: string, needCoordinates: boolean) => {
       if (needCoordinates) {
-        const crd = findBtnCoordinate(val);
-        setCoordinates(crd);
-        setCoordinatesRes(val);
+        coordinateSetter(val);
       }
-
-      setNumber(number + val);
+      if (number.length <= 10) {
+        setNumber(number + val);
+      }
     },
     [number, setNumber]
   );
 
+  const confirmNumberCheck = useCallback(() => {
+    if (number.length === 10 && isAgreed) {
+      confirmNumber();
+    }
+  }, [number, isAgreed, confirmNumber]);
+
   const delNum = useCallback(
     (needCoordinates: boolean) => {
       if (needCoordinates) {
-        const crd = findBtnCoordinate("D");
-        setCoordinates(crd);
-        setCoordinatesRes("D");
+        coordinateSetter("D");
       }
       if (number.length > 0) setNumber(number.substring(0, number.length - 1));
     },
     [number, setNumber]
   );
-  const toggleIsAgreed:React.ChangeEventHandler<HTMLInputElement> = () => {
-    const crd = findBtnCoordinate("agreed");
-    setCoordinates(crd);
-    setCoordinatesRes("agreed");
+
+  const toggleIsAgreed: React.ChangeEventHandler<HTMLInputElement> = () => {
+    coordinateSetter("agreed");
     setIsAgreed(!isAgreed);
   };
+
   const keyDown = useCallback(
     (e: KeyboardEvent) => {
       console.log(e);
@@ -73,13 +87,20 @@ const Keyboard: React.FC<IKeyboard> = ({
         addNum(key, false);
         return;
       }
+      if (keyCode === 27) {
+        setActiveWindow(windowEnum.video);
+      }
       if (keyCode === 13) {
         switch (coordinatesRes) {
           case "D":
             delNum(false);
             break;
+          case "confirm":
+            confirmNumberCheck();
+
+            break;
           case "x":
-            showContactForm(false);
+            setActiveWindow(windowEnum.video);
             break;
           case "agreed":
             setIsAgreed(!isAgreed);
@@ -92,13 +113,12 @@ const Keyboard: React.FC<IKeyboard> = ({
     [
       number,
       coordinates,
-      setCoordinates,
       coordinatesRes,
-      showContactForm,
+      setActiveWindow,
       addNum,
       delNum,
-      setIsAgreed,
       isAgreed,
+      confirmNumberCheck,
     ]
   );
 
@@ -109,31 +129,52 @@ const Keyboard: React.FC<IKeyboard> = ({
     };
   }, [keyDown, setCoordinates]);
 
+  const isButtonActive = (val: string): string => {
+    return coordinatesRes === val ? "active" : "";
+  };
+
+  const confirmButtonDisabled = () => {
+    if (number.length === 10 && isAgreed) {
+      return "keyboard__confirm_enabled ";
+    }
+    return "keyboard__confirm_disabled ";
+  };
+
+  const confirmButtonActive = () => {
+    if (coordinatesRes !== "confirm") return "";
+    if (number.length === 10 && isAgreed) return "active";
+    return "confirm_disabled-active";
+  };
+
   return (
-    <div className="App">
+    <>
       <button
-        onClick={() => showContactForm(false)}
-        className={coordinatesRes === "x" ? "active" : ""}
+        onClick={() => setActiveWindow(windowEnum.video)}
+        className={"keyboard__cross " + isButtonActive("x")}
       >
         X
       </button>
       <MainButtons
         onBtnPress={addNum}
         onDelPress={delNum}
-        currentValue={coordinatesRes}
+        isActive={isButtonActive}
       />
-      <div className={coordinatesRes === "agreed" ? "active" : ""}>
+      <div className={isButtonActive("agreed")}>
         <input
+          className="keyboard__checkbox "
           type="checkbox"
           checked={isAgreed}
           onChange={toggleIsAgreed}
         />
         Я согласен с условиями
       </div>
-      <button className={coordinatesRes === "confirm" ? "active" : ""}>
+      <button
+        onClick={confirmNumberCheck}
+        className={confirmButtonDisabled() + confirmButtonActive()}
+      >
         confirm
       </button>
-    </div>
+    </>
   );
 };
 export default Keyboard;
