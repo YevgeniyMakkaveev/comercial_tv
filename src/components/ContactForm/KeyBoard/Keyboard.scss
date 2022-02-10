@@ -18,6 +18,11 @@
   font-size: 1rem;
   background-color: transparent;
   border: 0.05rem solid black;
+  cursor: pointer;
+  &:hover{
+    background-color: black;
+    color: white;
+  }
 }
 
 .keyboard__cross {
@@ -28,6 +33,11 @@
   font-size: 1rem;
   top: 5%;
   right: 5%;
+  cursor: pointer;
+  &:hover {
+    background-color: black;
+    color: white;
+  }
 }
 
 .keyboard__confirm_enabled,
@@ -37,16 +47,26 @@
   font-size: 1.2rem;
   font-weight: 400;
   background-color: transparent;
+  cursor: pointer;
 }
 
 .keyboard__confirm_disabled {
   opacity: 0.4;
   border: 0.05rem solid gray;
+  &:hover{
+     border: 0.05rem solid crimson;
+     color: crimson;
+     opacity: 1;
+  }
 }
 
 .keyboard__confirm_enabled {
   opacity: 1;
   border: 0.05rem solid black;
+  &:hover {
+    background-color: black;
+    color: white;
+  }
 }
 
   .confirm_disabled-active {
