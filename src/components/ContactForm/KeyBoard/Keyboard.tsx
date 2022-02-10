@@ -10,14 +10,14 @@ import "./Keyboard.scss";
 import windowEnum from "../../../types/enum";
 
 interface IKeyboard extends IContactFormComponent {
-  setNumber: React.Dispatch<React.SetStateAction<string>>;
+  setPhone: React.Dispatch<React.SetStateAction<string>>;
   setActiveWindow: React.Dispatch<React.SetStateAction<windowEnum>>;
   confirmNumber: () => void;
 }
 
 const Keyboard: React.FC<IKeyboard> = ({
   phone,
-  setNumber,
+  setPhone,
   setActiveWindow,
   confirmNumber,
   isValid,
@@ -40,10 +40,10 @@ const Keyboard: React.FC<IKeyboard> = ({
         coordinateSetter(val);
       }
       if (phone.length <= 10) {
-        setNumber(phone + val);
+        setPhone(phone + val);
       }
     },
-    [phone, setNumber]
+    [phone, setPhone]
   );
 
   const confirmNumberCheck = useCallback(() => {
@@ -57,9 +57,9 @@ const Keyboard: React.FC<IKeyboard> = ({
       if (needCoordinates) {
         coordinateSetter("D");
       }
-      if (phone.length > 0) setNumber(phone.substring(0, phone.length - 1));
+      if (phone.length > 0) setPhone(phone.substring(0, phone.length - 1));
     },
-    [phone, setNumber]
+    [phone, setPhone]
   );
 
   const toggleIsAgreed: React.ChangeEventHandler<HTMLInputElement> = () => {

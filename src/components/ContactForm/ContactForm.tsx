@@ -15,21 +15,21 @@ const ContactForm: React.FC<IContactForm> = ({
   setActiveWindow,
   setIsContacted,
 }) => {
-  const [number, setNumber] = useState("");
+  const [phone, setPhone] = useState("");
   const [isValid, setIsValid] = useState<boolean | null>(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (number.length === 10) {
+    if (phone.length === 10) {
       setLoading(true);
-      getData(number)
+      getData(phone)
         .then((data) => setIsValid(data))
         .finally(() => setLoading(false));
     }
-  }, [number]);
+  }, [phone]);
 
   const confirmNumber = () => {
-    if (number.length === 10 && isValid) {
+    if (phone.length === 10 && isValid) {
       setActiveWindow(windowEnum.slider);
       setIsContacted(true);
     }
@@ -40,14 +40,14 @@ const ContactForm: React.FC<IContactForm> = ({
         <h2 className="keyboard__label">
           Введите ваш номер мобильного телефона
         </h2>
-        <PhoneNumber phone={number} isValid={isValid} loading={loading} />
+        <PhoneNumber phone={phone} isValid={isValid} loading={loading} />
         <h4 className="keyboard__underlabel">
           И с вами свяжется наш рекрутер для дальнейшей консультации
         </h4>
         <KeyBoard
           setActiveWindow={setActiveWindow}
-          phone={number}
-          setNumber={setNumber}
+          phone={phone}
+          setPhone={setPhone}
           confirmNumber={confirmNumber}
           isValid={isValid}
         />
