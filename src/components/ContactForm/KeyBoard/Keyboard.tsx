@@ -45,7 +45,7 @@ const Keyboard: React.FC<IKeyboard> = ({
   );
 
   const confirmNumberCheck = useCallback(() => {
-    if (phone.length === 10 && isAgreed&&isValid) {
+    if (phone.length === 10 &&isAgreed&&isValid) {
       confirmNumber();
     }
   }, [phone, isAgreed, confirmNumber,isValid]);

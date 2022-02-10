@@ -1,12 +1,9 @@
 import React from "react";
 
 import { IContactFormComponent } from "../../../types/types";
-import Spinner from "./Spinner/Spinner";
 import "./PhoneNumber.scss"
-interface IPhoneNumber extends IContactFormComponent{
- loading: boolean;
-}
-const PhoneNumber:React.FC<IPhoneNumber> =({phone,isValid,loading})=>{
+
+const PhoneNumber:React.FC<IContactFormComponent> =({phone,isValid})=>{
  const renderPhoneNumber=(start:number,finish:number)=>{
   const res:string[]=[]
   for(let i=start;i<finish;i++){
@@ -22,7 +19,6 @@ const classDispathc=(isValid:boolean|null)=>{
 
  return <div className={`keyboard__display ${classDispathc(isValid)}`}>
   +7({renderPhoneNumber(0,3)}){renderPhoneNumber(3,6)}-{renderPhoneNumber(6,8)}-{renderPhoneNumber(8,10)}
-  {loading&&<Spinner/>}
  </div> 
 }
 export default PhoneNumber;

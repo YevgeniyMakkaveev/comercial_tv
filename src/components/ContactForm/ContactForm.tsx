@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import IMainScreenComponent from "../../types/types";
 import KeyBoard from "./Keyboard/Keyboard";
-import getData from "../../units/callApi";
 import PhoneNumber from "./PhoneNumber/PhoneNumber";
 import "./ContactForm.scss";
 import windowEnum from "../../types/enum";
@@ -14,13 +13,10 @@ interface IContactForm extends IMainScreenComponent{
 const ContactForm: React.FC<IContactForm> = ({ setActiveWindow,setIsContacted }) => {
   const [number, setNumber] = useState("");
   const [isValid, setIsValid] = useState<boolean | null>(null);
-  const [loading, setLoading]=useState(false);
 
   useEffect(() => {
      if(number.length===10){
-        setLoading(true)
-      getData(number).then(data=>setIsValid(data)
-      ).finally(()=>setLoading(false));
+       setIsValid(true);
     }
 
   },[number]);
@@ -35,7 +31,7 @@ const ContactForm: React.FC<IContactForm> = ({ setActiveWindow,setIsContacted })
     <div className="contact-form">
       <div>
         <h2 className="keyboard__label">Введите ваш номер мобильного телефона</h2>
-        <PhoneNumber phone={number} isValid={isValid} loading={loading}/>
+        <PhoneNumber phone={number} isValid={isValid}/>
         <h4 className="keyboard__underlabel">И с вами свяжется наш рекрутер для дальнейшей консультации</h4>
       <KeyBoard
         setActiveWindow={setActiveWindow}
