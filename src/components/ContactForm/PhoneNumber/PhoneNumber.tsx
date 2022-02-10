@@ -1,10 +1,12 @@
 import React from "react";
 import "./PhoneNumber.scss"
-
+import Spinner from "./Spinner/Spinner";
 interface IPhoneNumber {
  phone: string;
+ isValid: boolean|null;
+ loading: boolean;
 }
-const PhoneNumber:React.FC<IPhoneNumber> =({phone})=>{
+const PhoneNumber:React.FC<IPhoneNumber> =({phone,isValid,loading})=>{
  const renderPhoneNumber=(start:number,finish:number)=>{
   const res:string[]=[]
   for(let i=start;i<finish;i++){
@@ -12,9 +14,15 @@ const PhoneNumber:React.FC<IPhoneNumber> =({phone})=>{
   }
   return <span className="keyboard__phone_el" key={Math.random()}>{res.join("")}</span>;
  }
+const classDispathc=(isValid:boolean|null)=>{
+ if(isValid===true){ return "phone__valid"}
+ if(isValid===false){return "phone__invalid"}
+ return ""
+}
 
- return <div className="keyboard__display">
+ return <div className={`keyboard__display ${classDispathc(isValid)}`}>
   +7({renderPhoneNumber(0,3)}){renderPhoneNumber(3,6)}-{renderPhoneNumber(6,8)}-{renderPhoneNumber(8,10)}
+  {loading&&<Spinner/>}
  </div> 
 }
 export default PhoneNumber;

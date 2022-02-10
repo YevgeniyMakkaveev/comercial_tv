@@ -1,8 +1,17 @@
 .keyboard__display {
  font-size: 1.5rem;
+ display: flex;
+ justify-content: center;
 
 .keyboard__phone_el{
  margin: 0.01rem;
  letter-spacing: 4px;
 }
+}
+
+.phone__valid{
+ color: green;
+}
+.phone__invalid{
+ color: crimson;
 }

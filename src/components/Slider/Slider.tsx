@@ -25,7 +25,7 @@ const Slider: React.FC<IMainScreenComponent> = ({ setActiveWindow }) => {
 
   const onKeyDown = useCallback(
     (e: KeyboardEvent) => {
-      const { keyCode} = e;
+      const { keyCode } = e;
       switch (keyCode) {
         case 37:
           prevSlide();
@@ -37,6 +37,7 @@ const Slider: React.FC<IMainScreenComponent> = ({ setActiveWindow }) => {
           setActiveWindow(windowEnum.video);
           break;
         case 27:
+          e.preventDefault();
           setActiveWindow(windowEnum.video);
       }
     },
@@ -52,7 +53,12 @@ const Slider: React.FC<IMainScreenComponent> = ({ setActiveWindow }) => {
 
   return (
     <div className="slider">
-      <button onClick={()=>setActiveWindow(windowEnum.video)} className="slider__close">X</button>
+      <button
+        onClick={() => setActiveWindow(windowEnum.video)}
+        className="slider__close"
+      >
+        X
+      </button>
       {sliderData.map((obj, index) => {
         return (
           <div

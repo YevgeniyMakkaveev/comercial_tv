@@ -7,41 +7,44 @@ import "./ContactForm.scss";
 import windowEnum from "../../types/enum";
 import image from "../../assets/promo.jpg";
 
-const ContactForm: React.FC<IMainScreenComponent> = ({ setActiveWindow }) => {
+interface IContactForm extends IMainScreenComponent{
+  setIsContacted:React.Dispatch<React.SetStateAction<boolean>>
+};
+
+const ContactForm: React.FC<IContactForm> = ({ setActiveWindow,setIsContacted }) => {
   const [number, setNumber] = useState("");
-  const [isValid, setIsValid] = useState<boolean | null>(true);
-  const [needLoading, setNeedLoading] = useState(false);
+  const [isValid, setIsValid] = useState<boolean | null>(null);
+  const [loading, setLoading]=useState(false);
 
   useEffect(() => {
-    if(number.length<10){
-      setNeedLoading(false)
+     if(number.length===10){
+      //  console.log("загрузка")
+      //   setLoading(true)
+      // getData(number).then(data=>setIsValid(data)
+      // ).finally(()=>setLoading(false));
+      setIsValid(true)
     }
-    if(number.length===10){
-      setNeedLoading(false)
-    }
-    if (number.length===10&&needLoading) {
-      setNeedLoading(false);
-      getData(number).then(data=>setIsValid(data)
-      );
-    }
-  },[number,needLoading,setNeedLoading]);
+
+  },[number]);
 
   const confirmNumber=()=>{
     if(number.length===10&&isValid){
       setActiveWindow(windowEnum.slider)
+      setIsContacted(true)
     }
   }
   return (
     <div className="contact-form">
       <div>
         <h2 className="keyboard__label">Введите ваш номер мобильного телефона</h2>
-        <PhoneNumber phone={number}/>
+        <PhoneNumber phone={number} isValid={isValid} loading={loading}/>
         <h4 className="keyboard__underlabel">И с вами свяжется наш рекрутер для дальнейшей консультации</h4>
       <KeyBoard
         setActiveWindow={setActiveWindow}
         number={number}
         setNumber={setNumber}
         confirmNumber={confirmNumber}
+        isValid={isValid}
       />
       </div>
       <img className="contactImg" alt="promo" src={image}/>

@@ -5,9 +5,15 @@ const buttonNavHelper = (cmd: string, crd: number[]): number[] => {
   switch (cmd) {
     case "ArrowUp":
       crd[0]--;
+      if(crd[0]===3){
+        crd[1]++
+      }
       break;
     case "ArrowDown":
       crd[0]++;
+         if(crd[0]===4&&crd[1]!==0){
+        crd[1]--
+      }
       break;
     case "ArrowLeft":
       crd[1]--;
@@ -38,7 +44,7 @@ const buttonNavHelper = (cmd: string, crd: number[]): number[] => {
     crd[1]=btnMatrix[crd[0]].length-1
   }
 
-  console.log(crd);
+
   return crd;
 };
 export default buttonNavHelper;

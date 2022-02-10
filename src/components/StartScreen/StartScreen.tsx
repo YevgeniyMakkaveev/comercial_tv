@@ -4,10 +4,14 @@ import qrCode from "../../assets/qrCode.png";
 import IMainScreenComponent from "../../types/types";
 import windowEnum from "../../types/enum";
 
-const StartScreen: React.FC<IMainScreenComponent> = ({ setActiveWindow }) => {
+interface IStartScreen extends IMainScreenComponent{
+  isContacted: boolean;
+}
+
+const StartScreen: React.FC<IStartScreen> = ({ setActiveWindow,isContacted }) => {
   const [showPromo, setShowPromo] = useState(false);
 
-  setTimeout(() => {
+  !isContacted&&setTimeout(() => {
     setShowPromo(true);
   }, 5000);
 
@@ -28,7 +32,7 @@ const StartScreen: React.FC<IMainScreenComponent> = ({ setActiveWindow }) => {
     return () => {
       window.removeEventListener("keydown", onKeyPress);
     };
-  }, []);
+  }, [onKeyPress]);
   const promoPopup = (
     <div className="popup">
       <span className="popup__text">

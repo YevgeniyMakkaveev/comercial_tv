@@ -12,6 +12,7 @@ interface IKeyboard {
   number: string;
   setNumber: React.Dispatch<React.SetStateAction<string>>;
   setActiveWindow: React.Dispatch<React.SetStateAction<windowEnum>>;
+  isValid: boolean|null;
   confirmNumber: () => void;
 }
 
@@ -20,10 +21,9 @@ const Keyboard: React.FC<IKeyboard> = ({
   setNumber,
   setActiveWindow,
   confirmNumber,
+  isValid
 }) => {
-  const [coordinates, setCoordinates] = useState<number[]>(
-    findBtnCoordinate("5")
-  );
+  const [coordinates, setCoordinates] = useState<number[]>(findBtnCoordinate("5"));
   const [coordinatesRes, setCoordinatesRes] = useState<string>("5");
   const [isAgreed, setIsAgreed] = useState(false);
 
@@ -46,10 +46,10 @@ const Keyboard: React.FC<IKeyboard> = ({
   );
 
   const confirmNumberCheck = useCallback(() => {
-    if (number.length === 10 && isAgreed) {
+    if (number.length === 10 && isAgreed&&isValid) {
       confirmNumber();
     }
-  }, [number, isAgreed, confirmNumber]);
+  }, [number, isAgreed, confirmNumber,isValid]);
 
   const delNum = useCallback(
     (needCoordinates: boolean) => {
@@ -68,7 +68,6 @@ const Keyboard: React.FC<IKeyboard> = ({
 
   const keyDown = useCallback(
     (e: KeyboardEvent) => {
-      console.log(e);
       const { keyCode, key } = e;
       if (keyCode === 8 && number.length > 0) {
         delNum(false);
@@ -88,6 +87,7 @@ const Keyboard: React.FC<IKeyboard> = ({
         return;
       }
       if (keyCode === 27) {
+        e.preventDefault();
         setActiveWindow(windowEnum.video);
       }
       if (keyCode === 13) {
@@ -97,7 +97,6 @@ const Keyboard: React.FC<IKeyboard> = ({
             break;
           case "confirm":
             confirmNumberCheck();
-
             break;
           case "x":
             setActiveWindow(windowEnum.video);
@@ -150,8 +149,7 @@ const Keyboard: React.FC<IKeyboard> = ({
     <>
       <button
         onClick={() => setActiveWindow(windowEnum.video)}
-        className={"keyboard__cross " + isButtonActive("x")}
-      >
+        className={"keyboard__cross " + isButtonActive("x")}>
         X
       </button>
       <MainButtons

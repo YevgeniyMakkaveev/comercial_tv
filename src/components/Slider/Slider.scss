@@ -1,24 +1,25 @@
-.slider{
- width: 100%;
- position: relative;
- overflow: hidden;
- height: 100%;
+.slider {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  height: 100%;
 }
 
 .slide {
- width: 100%;
- height: 100%;
-  position: absolute;
- opacity: 0;
- transition: opacity ease-in-out 0.4s;
- img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
- }
+  position: absolute;
+  opacity: 0;
+  transition: opacity ease-in-out 0.4s;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 }
 
-.slider__close{
+.slider__close {
   position: absolute;
   z-index: 900;
   width: 40px;
@@ -32,33 +33,36 @@
 }
 
 .active-anim {
- opacity: 1;
-}
-.slider__btns{
- z-index: 900;
- position: absolute;
- top: 90%;
- right: 50%;
-
-.btn__right{
- background: url(../../assets/arrows/arrow-right.png);
- background-color: black;
- border: none;
- border-radius: 0.3em;
-  width: 50px;
-  height: 50px;
-  margin: 0 0.5rem;
-  background-size: cover;
-  cursor: pointer;
-}
-.btn__left{
- background: url(../../assets//arrows/arrow-left.png);
- background-color: black;
- border: none;
- border-radius: 0.3em;
- background-size: cover;
- width: 50px;
- height: 50px;
-}
+  opacity: 1;
 }
 
+.slider__btns {
+  z-index: 900;
+  position: absolute;
+  top: 90%;
+  right: 50%;
+  display: flex;
+  button{
+    margin: 0 1rem;
+  }
+.btn__left, .btn__right{
+    border: none;
+    display: block;
+    width: 50px;
+    height: 50px;
+    box-shadow: 0 10px 10px black;
+    cursor: pointer;
+}
+  .btn__right {
+    background: url(../../assets/arrows/arrow-right.png);
+    background-color: lightgray;
+    transform: skew(10deg);
+    background-size: cover;
+  }
+
+  .btn__left {
+    background: url(../../assets//arrows/arrow-left.png);
+    background-color: lightgray;
+    transform: skew(-10deg);
+  }
+}
