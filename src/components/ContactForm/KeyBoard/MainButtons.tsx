@@ -1,6 +1,6 @@
 import React from "react";
 import { numBtns } from "../../../units/matrixBtns";
-import "./Keyboard.scss"
+import "./Keyboard.scss";
 interface IMainBtns {
   onBtnPress: (val: string, needCoordinates: boolean) => void;
   onDelPress: (needCoordinates: boolean) => void;
@@ -24,12 +24,20 @@ const MainButtons: React.FC<IMainBtns> = ({
     );
   };
 
-  return <><div className="numKeyboard"> {numBtns.map((x) => CreateNumBtn(x))}</div>
-  <div className="extraKeyboard">
-   <button className={"keyboard__btn " + isActive("D")} onClick={()=>onDelPress(true)}>СТЕРЕТЬ</button>
-    {CreateNumBtn("0")}
-    </div>
-  </>;
+  return (
+    <>
+      <div className="numKeyboard"> {numBtns.map((x) => CreateNumBtn(x))}</div>
+      <div className="extraKeyboard">
+        <button
+          className={"keyboard__btn " + isActive("D")}
+          onClick={() => onDelPress(true)}
+        >
+          СТЕРЕТЬ
+        </button>
+        {CreateNumBtn("0")}
+      </div>
+    </>
+  );
 };
 
 export default MainButtons;

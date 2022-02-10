@@ -5,7 +5,7 @@ import {
   findBtnCoordinate,
   getBtnByCoordinate,
 } from "../../../units/findButtonHelper";
-import {IContactFormComponent} from "../../../types/types"
+import { IContactFormComponent } from "../../../types/types";
 import "./Keyboard.scss";
 import windowEnum from "../../../types/enum";
 
@@ -20,9 +20,11 @@ const Keyboard: React.FC<IKeyboard> = ({
   setNumber,
   setActiveWindow,
   confirmNumber,
-  isValid
+  isValid,
 }) => {
-  const [coordinates, setCoordinates] = useState<number[]>(findBtnCoordinate("5"));
+  const [coordinates, setCoordinates] = useState<number[]>(
+    findBtnCoordinate("5")
+  );
   const [coordinatesRes, setCoordinatesRes] = useState<string>("5");
   const [isAgreed, setIsAgreed] = useState(false);
 
@@ -45,10 +47,10 @@ const Keyboard: React.FC<IKeyboard> = ({
   );
 
   const confirmNumberCheck = useCallback(() => {
-    if (phone.length === 10 && isAgreed&&isValid) {
+    if (phone.length === 10 && isAgreed && isValid) {
       confirmNumber();
     }
-  }, [phone, isAgreed, confirmNumber,isValid]);
+  }, [phone, isAgreed, confirmNumber, isValid]);
 
   const delNum = useCallback(
     (needCoordinates: boolean) => {
@@ -148,7 +150,8 @@ const Keyboard: React.FC<IKeyboard> = ({
     <>
       <button
         onClick={() => setActiveWindow(windowEnum.video)}
-        className={"keyboard__cross " + isButtonActive("x")}>
+        className={"keyboard__cross " + isButtonActive("x")}
+      >
         X
       </button>
       <MainButtons
@@ -156,7 +159,7 @@ const Keyboard: React.FC<IKeyboard> = ({
         onDelPress={delNum}
         isActive={isButtonActive}
       />
-      <div className={"keyboard__checkbox_wrap "+ isButtonActive("agreed")}>
+      <div className={"keyboard__checkbox_wrap " + isButtonActive("agreed")}>
         <input
           className="keyboard__checkbox "
           type="checkbox"

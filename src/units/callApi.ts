@@ -1,10 +1,12 @@
-import {_api} from '../const'
+import { _api } from "../const";
 
-const getData = async (phone:string)=>{
- const response = await fetch(`${_api}number=+7${phone}&country_code=&format=1`)
- const data:any = await response.json()
- 
- if(data.valid) return data.valid
- return false
-}
-export default getData
+const getData = async (phone: string) => {
+  const response = await fetch(
+    `${_api}number=+7${phone}&country_code=&format=1`
+  );
+  const data: any = await response.json();
+
+  if (data.valid) return data.valid;
+  return false;
+};
+export default getData;

@@ -4,28 +4,32 @@ import qrCode from "../../assets/qrCode.png";
 import IMainScreenComponent from "../../types/types";
 import windowEnum from "../../types/enum";
 
-interface IStartScreen extends IMainScreenComponent{
+interface IStartScreen extends IMainScreenComponent {
   isContacted: boolean;
 }
 
-const StartScreen: React.FC<IStartScreen> = ({ setActiveWindow,isContacted }) => {
+const StartScreen: React.FC<IStartScreen> = ({
+  setActiveWindow,
+  isContacted,
+}) => {
   const [showPromo, setShowPromo] = useState(false);
 
-  !isContacted&&setTimeout(() => {
-    setShowPromo(true);
-  }, 5000);
+  !isContacted &&
+    setTimeout(() => {
+      setShowPromo(true);
+    }, 5000);
 
   const close: React.MouseEventHandler<HTMLButtonElement> = () => {
     setActiveWindow(windowEnum.contact);
   };
   const onKeyPress = useCallback(
     (e: KeyboardEvent) => {
-      const { keyCode} = e;
-      if (keyCode === 13&&showPromo) {
+      const { keyCode } = e;
+      if (keyCode === 13 && showPromo) {
         setActiveWindow(windowEnum.contact);
       }
     },
-    [setActiveWindow,showPromo]
+    [setActiveWindow, showPromo]
   );
   useEffect(() => {
     window.addEventListener("keydown", onKeyPress);

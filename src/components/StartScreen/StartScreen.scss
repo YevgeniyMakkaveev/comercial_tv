@@ -5,6 +5,7 @@
   z-index: 0;
   overflow: hidden;
 }
+
 .popup {
   background-color: #66cbf6;
   position: absolute;
@@ -18,18 +19,21 @@
   right: 5%;
   top: 70%;
   z-index: 999;
+
   .popup__text {
     margin: 0 auto;
     font-weight: 500;
     font-size: 1.1rem;
     text-align: center;
   }
+
   .qr-code {
     display: block;
     width: 100px;
     height: auto;
     margin: 0 auto;
   }
+
   .popup__btn {
     display: block;
     background-color: black;
