@@ -20,6 +20,9 @@ const ContactForm: React.FC<IContactForm> = ({
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    if(phone.length<10){
+      setIsValid(null)
+    }
     if (phone.length === 10) {
       setLoading(true);
       getData(phone)
