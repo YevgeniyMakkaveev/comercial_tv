@@ -15,12 +15,14 @@
   min-height: 50px;
   display: block;
   margin: 0.5rem 0.5rem;
+  font-size: 1rem;
   background-color: transparent;
   border: 0.05rem solid black;
 }
 
 .keyboard__cross {
   position: absolute;
+  border: none;
   width: 40px;
   height: 30px;
   font-size: 1rem;
@@ -53,8 +55,13 @@
   opacity: 1 !important;
 }
 
+.keyboard__checkbox_wrap{
+  width: 250px;
+  margin: 5px auto;
+}
+
 .keyboard__checkbox {
-  background: rgba(40, 40, 40, 0.2);
+  background: transparent;
   width: 20px;
   height: 20px;
 }

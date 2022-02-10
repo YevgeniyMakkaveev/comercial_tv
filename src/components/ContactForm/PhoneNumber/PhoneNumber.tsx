@@ -1,9 +1,9 @@
 import React from "react";
-import "./PhoneNumber.scss"
+
+import { IContactFormComponent } from "../../../types/types";
 import Spinner from "./Spinner/Spinner";
-interface IPhoneNumber {
- phone: string;
- isValid: boolean|null;
+import "./PhoneNumber.scss"
+interface IPhoneNumber extends IContactFormComponent{
  loading: boolean;
 }
 const PhoneNumber:React.FC<IPhoneNumber> =({phone,isValid,loading})=>{

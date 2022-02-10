@@ -18,11 +18,9 @@ const ContactForm: React.FC<IContactForm> = ({ setActiveWindow,setIsContacted })
 
   useEffect(() => {
      if(number.length===10){
-      //  console.log("загрузка")
-      //   setLoading(true)
-      // getData(number).then(data=>setIsValid(data)
-      // ).finally(()=>setLoading(false));
-      setIsValid(true)
+        setLoading(true)
+      getData(number).then(data=>setIsValid(data)
+      ).finally(()=>setLoading(false));
     }
 
   },[number]);
@@ -41,7 +39,7 @@ const ContactForm: React.FC<IContactForm> = ({ setActiveWindow,setIsContacted })
         <h4 className="keyboard__underlabel">И с вами свяжется наш рекрутер для дальнейшей консультации</h4>
       <KeyBoard
         setActiveWindow={setActiveWindow}
-        number={number}
+        phone={number}
         setNumber={setNumber}
         confirmNumber={confirmNumber}
         isValid={isValid}

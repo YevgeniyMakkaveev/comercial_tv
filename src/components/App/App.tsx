@@ -6,7 +6,7 @@ import windowEnum from "../../types/enum";
 import "./App.scss";
 
 function App() {
-  const [activeWindow, setActiveWindow]=useState(windowEnum.contact)
+  const [activeWindow, setActiveWindow]=useState(windowEnum.video)
   const [isContacted, setIsContacted]=useState(false);
   return (
     <div className="App">

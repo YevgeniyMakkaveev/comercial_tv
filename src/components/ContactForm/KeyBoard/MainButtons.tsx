@@ -26,8 +26,8 @@ const MainButtons: React.FC<IMainBtns> = ({
 
   return <><div className="numKeyboard"> {numBtns.map((x) => CreateNumBtn(x))}</div>
   <div className="extraKeyboard">
-   {CreateNumBtn("0")}
-   <button className={"keyboard__btn " + isActive("D")} onClick={()=>onDelPress(true)}>Del</button>
+   <button className={"keyboard__btn " + isActive("D")} onClick={()=>onDelPress(true)}>СТЕРЕТЬ</button>
+    {CreateNumBtn("0")}
     </div>
   </>;
 };

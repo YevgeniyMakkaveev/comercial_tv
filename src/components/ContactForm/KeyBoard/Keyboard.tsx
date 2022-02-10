@@ -5,19 +5,18 @@ import {
   findBtnCoordinate,
   getBtnByCoordinate,
 } from "../../../units/findButtonHelper";
+import {IContactFormComponent} from "../../../types/types"
 import "./Keyboard.scss";
 import windowEnum from "../../../types/enum";
 
-interface IKeyboard {
-  number: string;
+interface IKeyboard extends IContactFormComponent {
   setNumber: React.Dispatch<React.SetStateAction<string>>;
   setActiveWindow: React.Dispatch<React.SetStateAction<windowEnum>>;
-  isValid: boolean|null;
   confirmNumber: () => void;
 }
 
 const Keyboard: React.FC<IKeyboard> = ({
-  number,
+  phone,
   setNumber,
   setActiveWindow,
   confirmNumber,
@@ -38,27 +37,27 @@ const Keyboard: React.FC<IKeyboard> = ({
       if (needCoordinates) {
         coordinateSetter(val);
       }
-      if (number.length <= 10) {
-        setNumber(number + val);
+      if (phone.length <= 10) {
+        setNumber(phone + val);
       }
     },
-    [number, setNumber]
+    [phone, setNumber]
   );
 
   const confirmNumberCheck = useCallback(() => {
-    if (number.length === 10 && isAgreed&&isValid) {
+    if (phone.length === 10 && isAgreed&&isValid) {
       confirmNumber();
     }
-  }, [number, isAgreed, confirmNumber,isValid]);
+  }, [phone, isAgreed, confirmNumber,isValid]);
 
   const delNum = useCallback(
     (needCoordinates: boolean) => {
       if (needCoordinates) {
         coordinateSetter("D");
       }
-      if (number.length > 0) setNumber(number.substring(0, number.length - 1));
+      if (phone.length > 0) setNumber(phone.substring(0, phone.length - 1));
     },
-    [number, setNumber]
+    [phone, setNumber]
   );
 
   const toggleIsAgreed: React.ChangeEventHandler<HTMLInputElement> = () => {
@@ -69,7 +68,7 @@ const Keyboard: React.FC<IKeyboard> = ({
   const keyDown = useCallback(
     (e: KeyboardEvent) => {
       const { keyCode, key } = e;
-      if (keyCode === 8 && number.length > 0) {
+      if (keyCode === 8 && phone.length > 0) {
         delNum(false);
         return;
       }
@@ -110,7 +109,7 @@ const Keyboard: React.FC<IKeyboard> = ({
       }
     },
     [
-      number,
+      phone,
       coordinates,
       coordinatesRes,
       setActiveWindow,
@@ -133,7 +132,7 @@ const Keyboard: React.FC<IKeyboard> = ({
   };
 
   const confirmButtonDisabled = () => {
-    if (number.length === 10 && isAgreed) {
+    if (phone.length === 10 && isAgreed) {
       return "keyboard__confirm_enabled ";
     }
     return "keyboard__confirm_disabled ";
@@ -141,7 +140,7 @@ const Keyboard: React.FC<IKeyboard> = ({
 
   const confirmButtonActive = () => {
     if (coordinatesRes !== "confirm") return "";
-    if (number.length === 10 && isAgreed) return "active";
+    if (phone.length === 10 && isAgreed) return "active";
     return "confirm_disabled-active";
   };
 
@@ -157,7 +156,7 @@ const Keyboard: React.FC<IKeyboard> = ({
         onDelPress={delNum}
         isActive={isButtonActive}
       />
-      <div className={isButtonActive("agreed")}>
+      <div className={"keyboard__checkbox_wrap "+ isButtonActive("agreed")}>
         <input
           className="keyboard__checkbox "
           type="checkbox"
@@ -170,7 +169,7 @@ const Keyboard: React.FC<IKeyboard> = ({
         onClick={confirmNumberCheck}
         className={confirmButtonDisabled() + confirmButtonActive()}
       >
-        confirm
+        ПОДТВЕРДИТЬ НОМЕР
       </button>
     </>
   );
