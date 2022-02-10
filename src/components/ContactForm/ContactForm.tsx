@@ -15,11 +15,14 @@ const ContactForm: React.FC<IContactForm> = ({ setActiveWindow,setIsContacted })
   const [isValid, setIsValid] = useState<boolean | null>(null);
 
   useEffect(() => {
+    if(number.length<10&&isValid){
+      setIsValid(false);
+    }
      if(number.length===10){
        setIsValid(true);
     }
 
-  },[number]);
+  },[number,isValid]);
 
   const confirmNumber=()=>{
     if(number.length===10&&isValid){
