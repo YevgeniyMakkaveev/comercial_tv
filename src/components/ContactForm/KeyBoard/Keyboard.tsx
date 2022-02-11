@@ -127,7 +127,7 @@ const Keyboard: React.FC<IKeyboard> = ({
     return () => {
       window.removeEventListener("keydown", keyDown);
     };
-  }, [keyDown, setCoordinates]);
+  }, [keyDown]);
 
   const isButtonActive = (val: string): string => {
     return coordinatesRes === val ? "active" : "";
